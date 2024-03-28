@@ -8,7 +8,6 @@ library(ggplot2)
 log2_abundance_189_chems <- read_excel("log2_abundance_189_chems.xlsx")
 chemicals <- log2_abundance_189_chems[,2:191]
 
-
 #training / testing data
 size = floor(0.8 * nrow(chemicals))
 
