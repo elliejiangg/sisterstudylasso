@@ -1,7 +1,19 @@
-set.seed(100)
+#Libraries
+library(glmnet)
+library(readxl)
+library(data.table)
+library(ggplot2)
+
+#upload file
+log2_abundance_189_chems <- read_excel("log2_abundance_189_chems.xlsx")
+chemicals <- log2_abundance_189_chems[,2:191]
+
+
 #training / testing data
+
 size = floor(0.8 * nrow(chemicals))
 
+set.seed(100)
 train_ind = sample(seq_len(nrow(chemicals)), size = size)
 
 train = chemicals[train_ind,]
@@ -21,8 +33,6 @@ y_test[y_test == "case"] <- "1"
 y_test[y_test == 'ctrl']<- "0"
 y_test = sapply(y_test, as.numeric)
 
-install.packages("glmnet")
-library('glmnet')
 
 
 #preparing data sets for cross validation
@@ -56,3 +66,5 @@ inds = which(c!=0)
 variables = row.names(c)[inds]
 variables = variables [!variables %in% '(Intercept)']
 variables
+
+
